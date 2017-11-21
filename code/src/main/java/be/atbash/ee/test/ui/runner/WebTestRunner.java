@@ -19,6 +19,9 @@ import be.atbash.ee.test.ui.PublicAPI;
 import be.atbash.ee.test.ui.config.ServerConfigRule;
 import be.atbash.ee.test.ui.config.SwarmConfiguration;
 import be.atbash.ee.test.ui.exception.WebTesterConfigurationException;
+import be.atbash.ee.test.ui.plugin.Technology;
+import be.atbash.ee.test.ui.plugin.WebPageFactory;
+import org.apache.commons.lang.StringUtils;
 import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.BlockJUnit4ClassRunner;
 import org.junit.runners.model.InitializationError;
@@ -27,6 +30,10 @@ import org.junit.runners.model.Statement;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+import java.util.ServiceLoader;
 
 /**
  *
@@ -36,6 +43,20 @@ public class WebTestRunner extends BlockJUnit4ClassRunner {
 
     // We can't run in parallel due to JavaFX, so this is not an issue
     public static SwarmConfiguration swarmConfiguration;
+
+    // We can't run in parallel due to JavaFX, so this is not an issue
+    public static String technologyName;
+
+    // TODO We need to hide this so developer can't manipulate it.
+    // But it will complicate testing :)
+    public static Map<String, WebPageFactory> factories;
+
+    static {
+        factories = new HashMap<>();
+        for (WebPageFactory webPageFactory : ServiceLoader.load(WebPageFactory.class)) {
+            factories.put(webPageFactory.getTechnologyName(), webPageFactory);
+        }
+    }
 
     /**
      * Creates a BlockJUnit4ClassRunner to run {@code klass}
@@ -47,6 +68,28 @@ public class WebTestRunner extends BlockJUnit4ClassRunner {
         super(klass);
 
         defineSwarmConfiguration(klass);
+
+        defineTechnology(klass);
+        checkTechnology(klass);
+    }
+
+    private void checkTechnology(Class<?> klass) {
+        String trimmedName = StringUtils.trimToEmpty(technologyName).toLowerCase(Locale.ENGLISH);
+        if (StringUtils.isNotEmpty(trimmedName)) {
+            if (!factories.containsKey(trimmedName)) {
+                throw new WebTesterConfigurationException(klass, String.format("Unknown technology name %s", trimmedName));
+            }
+        }
+        technologyName = trimmedName;
+    }
+
+    private void defineTechnology(Class<?> klass) {
+        Technology technology = klass.getAnnotation(Technology.class);
+        if (technology != null) {
+            technologyName = technology.value();
+        } else {
+            technologyName = null;
+        }
     }
 
     private void defineSwarmConfiguration(Class<?> klass) {
@@ -62,6 +105,7 @@ public class WebTestRunner extends BlockJUnit4ClassRunner {
                 try {
                     swarmConfiguration = (SwarmConfiguration) method.invoke(null);
                 } catch (IllegalAccessException | InvocationTargetException e) {
+                    // FIXME
                     e.printStackTrace();
                 }
             }

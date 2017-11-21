@@ -13,19 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package be.atbash.ee.test.ui.exception;
+package be.atbash.ee.test.ui.plugin;
+
+import be.atbash.ee.test.ui.WebPage;
+import be.atbash.ee.test.ui.browser.Browser;
+import be.atbash.ee.test.ui.browser.Page;
 
 /**
  *
  */
 
-public class WebTesterConfigurationException extends RuntimeException {
+public interface WebPageFactory {
+    <T extends WebPage> T createWebPage(Browser browser, Page page);
 
-    public WebTesterConfigurationException(Class returnClass) {
-        super(String.format("static method annotated with @ServerConfigRule must return SwarmConfiguration instance (found %s)", returnClass.getName()));
-    }
-
-    public WebTesterConfigurationException(Class testerClass, String message) {
-        super(String.format("Configuration exception for %s : %s", testerClass.getName(), message));
-    }
+    String getTechnologyName();
 }

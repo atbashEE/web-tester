@@ -22,6 +22,7 @@ import be.atbash.ee.test.ui.exception.UnexpectedException;
 import be.atbash.ee.test.ui.external.ExternalResourceManager;
 import be.atbash.ee.test.ui.javafx.ExecuteJavaFxStatement;
 import be.atbash.ee.test.ui.javafx.TestApplication;
+import be.atbash.ee.test.ui.plugin.WebPageFactory;
 import be.atbash.ee.test.ui.runner.WebTestRunner;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.After;
@@ -40,7 +41,7 @@ import java.util.Map;
  *
  */
 @PublicAPI
-public class AbstractWebTest {
+public abstract class AbstractWebTest {
 
     private static Swarm swarm;
 
@@ -88,7 +89,7 @@ public class AbstractWebTest {
      * @param url
      * @return
      */
-    protected WebPage openPage(String url) {
+    protected <T extends WebPage> T openPage(String url) {
         return openPage(url, null);
     }
 
@@ -100,7 +101,7 @@ public class AbstractWebTest {
      * @param userAgent
      * @return
      */
-    protected WebPage openPage(String url, String userAgent) {
+    protected <T extends WebPage> T openPage(String url, String userAgent) {
         checkBrowser();
 
         // navigate to page
@@ -108,7 +109,14 @@ public class AbstractWebTest {
 
         new ExecuteJavaFxStatement(page::show, "Show 'Browser page' with JavaFX").doExecute();
 
-        return new WebPage(browser, page);
+        T result;
+        WebPageFactory webPageFactory = WebTestRunner.factories.get(WebTestRunner.technologyName);
+        if (webPageFactory == null) {
+            result = (T) new WebPage(browser, page);
+        } else {
+            result = webPageFactory.createWebPage(browser, page);
+        }
+        return result;
     }
 
     private void checkBrowser() {

@@ -13,19 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package be.atbash.ee.test.ui.exception;
+package be.atbash.ee.test.ui.jsf;
+
+import be.atbash.ee.test.ui.WebPage;
+import be.atbash.ee.test.ui.browser.Browser;
+import be.atbash.ee.test.ui.browser.Page;
+import be.atbash.ee.test.ui.plugin.WebPageFactory;
 
 /**
  *
  */
 
-public class WebTesterConfigurationException extends RuntimeException {
+public class JSFWebPageFactory implements WebPageFactory {
 
-    public WebTesterConfigurationException(Class returnClass) {
-        super(String.format("static method annotated with @ServerConfigRule must return SwarmConfiguration instance (found %s)", returnClass.getName()));
+    @Override
+    public <T extends WebPage> T createWebPage(Browser browser, Page page) {
+        return (T) new JSFWebPage(browser, page);
     }
 
-    public WebTesterConfigurationException(Class testerClass, String message) {
-        super(String.format("Configuration exception for %s : %s", testerClass.getName(), message));
+    @Override
+    public String getTechnologyName() {
+        return "jsf";
     }
 }

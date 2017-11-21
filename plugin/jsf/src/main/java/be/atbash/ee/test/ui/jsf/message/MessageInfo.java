@@ -13,19 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package be.atbash.ee.test.ui.exception;
+package be.atbash.ee.test.ui.jsf.message;
+
+import be.atbash.ee.test.ui.PublicAPI;
 
 /**
- *
+ * D
  */
+@PublicAPI
+public class MessageInfo {
 
-public class WebTesterConfigurationException extends RuntimeException {
+    private Severity severity;
+    private String text;
 
-    public WebTesterConfigurationException(Class returnClass) {
-        super(String.format("static method annotated with @ServerConfigRule must return SwarmConfiguration instance (found %s)", returnClass.getName()));
+    public MessageInfo(Severity severity, String text) {
+        this.severity = severity;
+        this.text = text;
     }
 
-    public WebTesterConfigurationException(Class testerClass, String message) {
-        super(String.format("Configuration exception for %s : %s", testerClass.getName(), message));
+    public Severity getSeverity() {
+        return severity;
+    }
+
+    public String getText() {
+        return text;
     }
 }

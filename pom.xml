@@ -64,6 +64,7 @@
 
     <modules>
         <module>code</module>
+        <module>plugin</module>
         <module>swarm-test-runner</module>
         <module>examples</module>
     </modules>

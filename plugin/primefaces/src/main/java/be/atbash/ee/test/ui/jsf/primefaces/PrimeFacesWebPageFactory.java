@@ -13,29 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package be.atbash.ee.test.ui.message;
+package be.atbash.ee.test.ui.jsf.primefaces;
 
-import be.atbash.ee.test.ui.PublicAPI;
+import be.atbash.ee.test.ui.WebPage;
+import be.atbash.ee.test.ui.browser.Browser;
+import be.atbash.ee.test.ui.browser.Page;
+import be.atbash.ee.test.ui.jsf.JSFWebPageFactory;
 
 /**
- * D
+ *
  */
-@PublicAPI
-public class MessageInfo {
 
-    private Severity severity;
-    private String text;
+public class PrimeFacesWebPageFactory extends JSFWebPageFactory {
 
-    public MessageInfo(Severity severity, String text) {
-        this.severity = severity;
-        this.text = text;
+    @Override
+    public <T extends WebPage> T createWebPage(Browser browser, Page page) {
+        return (T) new PrimeFacesWebPage(browser, page);
     }
 
-    public Severity getSeverity() {
-        return severity;
-    }
-
-    public String getText() {
-        return text;
+    @Override
+    public String getTechnologyName() {
+        return "jsf-primefaces";
     }
 }

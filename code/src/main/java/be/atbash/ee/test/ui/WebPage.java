@@ -20,12 +20,9 @@ import be.atbash.ee.test.ui.browser.Browser;
 import be.atbash.ee.test.ui.browser.Page;
 import be.atbash.ee.test.ui.dom.PageElement;
 import be.atbash.ee.test.ui.javafx.ExecuteJavaFxStatement;
-import be.atbash.ee.test.ui.message.MessageInfo;
-import be.atbash.ee.test.ui.message.Severity;
 
 import java.net.HttpCookie;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
@@ -35,14 +32,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  *
  */
-// @PublicAPI Not yet because we need to 'extension' mechanism for libraries like PrimeFaces
+@PublicAPI
 public class WebPage {
 
-    private Browser browser;
+    protected Browser browser;
 
-    private Page page;
+    protected Page page;
 
-    WebPage(Browser browser, Page page) {
+    protected WebPage(Browser browser, Page page) {
         this.browser = browser;
         this.page = page;
     }
@@ -123,50 +120,6 @@ public class WebPage {
         return browser.getCookies();
     }
 
-    /**
-     * FIXME This is primefaces specific, we should include this in a plugin.
-     *
-     * @return
-     */
-    public List<MessageInfo> getMessages() {
-        List<MessageInfo> result = new ArrayList<>();
-
-        Optional<PageElement> messagesNode = page.getWebDocument().query(".ui-messages");
-
-        messagesNode.ifPresent(element -> result.addAll(extractMessages(element)));
-
-        return result;
-    }
-
-    private Collection<? extends MessageInfo> extractMessages(PageElement element) {
-        List<PageElement> elements = element.find("li");
-
-        List<MessageInfo> result = new ArrayList<>();
-        for (PageElement messageElement : elements) {
-            String text = messageElement.getText().get();
-            // FIXME, the attributes aren't available why??
-            result.add(new MessageInfo(determineSeverity(messageElement.getOuterHTML()), text));
-        }
-        return result;
-    }
-
-    private Severity determineSeverity(String classAttributeValue) {
-        Severity result = null;
-        if (classAttributeValue.contains("ui-messages-fatal-")) {
-            result = Severity.FATAL;
-        }
-        if (classAttributeValue.contains("ui-messages-error-")) {
-            result = Severity.ERROR;
-        }
-        if (classAttributeValue.contains("ui-messages-warn-")) {
-            result = Severity.WARNING;
-        }
-        if (classAttributeValue.contains("ui-messages-info-")) {
-            result = Severity.INFO;
-        }
-        return result;
-    }
-
     public void sendKeys(PageElement element, String text) {
 
         new ExecuteJavaFxStatement(element::focus, "Web element focus").doExecute();
@@ -177,7 +130,6 @@ public class WebPage {
     private class DefaultGuardClick implements GuardClick {
         private PageElement element;
         private Page page;
-
 
         DefaultGuardClick(PageElement element, Page page) {
             this.element = element;
@@ -194,7 +146,6 @@ public class WebPage {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
 
         }
 
