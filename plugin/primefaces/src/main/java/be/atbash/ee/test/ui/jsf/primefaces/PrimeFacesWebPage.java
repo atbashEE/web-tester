@@ -45,7 +45,7 @@ public class PrimeFacesWebPage extends JSFWebPage {
     /**
      * @return
      */
-    public List<MessageInfo> getMessages() {
+    public List<MessageInfo> getMessages(String selector) {
         List<MessageInfo> result = new ArrayList<>();
 
         Optional<PageElement> messagesNode = page.getWebDocument().query(".ui-messages");

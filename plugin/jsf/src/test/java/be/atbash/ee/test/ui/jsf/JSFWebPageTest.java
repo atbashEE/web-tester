@@ -75,7 +75,7 @@ public class JSFWebPageTest {
 
         when(pageElementMock.find("li")).thenReturn(messageElements);
 
-        List<MessageInfo> messages = webPage.getMessages();
+        List<MessageInfo> messages = webPage.getMessages("#errors");
         assertThat(messages).hasSize(1);
         assertThat(messages).extracting("severity").containsExactly(Severity.ERROR);
         assertThat(messages).extracting("text").containsExactly(ERROR_MESSAGE_1);
@@ -97,7 +97,7 @@ public class JSFWebPageTest {
 
         when(pageElementMock.find("li")).thenReturn(messageElements);
 
-        List<MessageInfo> messages = webPage.getMessages();
+        List<MessageInfo> messages = webPage.getMessages("#errors");
         assertThat(messages).hasSize(1);
         assertThat(messages).extracting("severity").containsExactly(Severity.INFO);
         assertThat(messages).extracting("text").containsExactly(INFO_MESSAGE_1);
@@ -121,7 +121,7 @@ public class JSFWebPageTest {
 
         when(pageElementMock.find("li")).thenReturn(messageElements);
 
-        List<MessageInfo> messages = webPage.getMessages();
+        List<MessageInfo> messages = webPage.getMessages("#errors");
         assertThat(messages).hasSize(2);
         assertThat(messages).extracting("severity").containsOnly(Severity.ERROR);
         assertThat(messages).extracting("text").containsOnly(ERROR_MESSAGE_1, ERROR_MESSAGE_2);
@@ -137,7 +137,7 @@ public class JSFWebPageTest {
         List<PageElement> messageElements = new ArrayList<>();
         when(pageElementMock.find("li")).thenReturn(messageElements);
 
-        List<MessageInfo> messages = webPage.getMessages();
+        List<MessageInfo> messages = webPage.getMessages("#errors");
         assertThat(messages).isEmpty();
     }
 
@@ -148,7 +148,7 @@ public class JSFWebPageTest {
         when(pageMock.getWebDocument()).thenReturn(webDocumentMock);
         when(webDocumentMock.query(anyString())).thenReturn(Optional.empty());
 
-        List<MessageInfo> messages = webPage.getMessages();
+        List<MessageInfo> messages = webPage.getMessages("#errors");
         assertThat(messages).isEmpty();
     }
 }

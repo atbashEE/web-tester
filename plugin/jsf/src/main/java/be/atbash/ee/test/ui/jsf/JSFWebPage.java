@@ -44,14 +44,18 @@ public class JSFWebPage extends WebPage {
     /**
      * @return
      */
-    public List<MessageInfo> getMessages() {
+    public List<MessageInfo> getMessages(String selector) {
         List<MessageInfo> result = new ArrayList<>();
 
-        Optional<PageElement> messagesNode = page.getWebDocument().query("#errors");
+        Optional<PageElement> messagesNode = page.getWebDocument().query(selector);
 
         messagesNode.ifPresent(element -> result.addAll(extractMessages(element)));
 
         return result;
+    }
+
+    public List<MessageInfo> getMessages() {
+        return getMessages("#errors");
     }
 
     private Collection<? extends MessageInfo> extractMessages(PageElement element) {

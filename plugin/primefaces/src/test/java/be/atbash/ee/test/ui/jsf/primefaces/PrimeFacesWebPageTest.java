@@ -70,7 +70,7 @@ public class PrimeFacesWebPageTest {
 
         when(pageElementMock.find("li")).thenReturn(messageElements);
 
-        List<MessageInfo> messages = webPage.getMessages();
+        List<MessageInfo> messages = webPage.getMessages("#errors");
         assertThat(messages).hasSize(1);
         assertThat(messages).extracting("severity").containsExactly(Severity.ERROR);
         assertThat(messages).extracting("text").containsExactly(ERROR_MESSAGE_1);
