@@ -55,6 +55,13 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>be.atbash.ee.test.web-tester</groupId>
+            <artifactId>jsf-plugin</artifactId>
+            <version>${project.parent.version}</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <build>

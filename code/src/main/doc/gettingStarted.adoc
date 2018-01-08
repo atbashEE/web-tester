@@ -1,0 +1,155 @@
+
+== Getting started
+
+1. Add the main Atbash Web Tester dependency to the pom.xml
+
+[source,xml]
+----
+    <dependency>
+        <groupId>be.atbash.ee.test</groupId>
+        <artifactId>web-tester</artifactId>
+        <version>${project.parent.version}</version>
+        <scope>test</scope>
+    </dependency>
+----
+
+Depending on the type of application you want to test, add required plugin
+
+|=======
+|jsf-plugin |JSF fraction |Custom WebPage
+|primefaces-plugin |JSF fraction |Custom WebPage
+|ejb-plugin |EJB fraction |
+|config-plugin |MicroProfile config fraction |
+|=======
+
+TODO
+
+- JAX-RS plugin
+- @Technology based on the plugins.
+
+2\. define the webapp directory as test resource
+
+----
+    <testResources>
+        <testResource>
+            <directory>src/test/resources</directory>
+        </testResource>
+        <!-- Because we need the webapp section into the classloader of the Test run as resources -->
+        <testResource>
+            <directory>src/main/webapp</directory>
+        </testResource>
+    </testResources>
+----
+
+The webappp directory needs to be on the classpath when the test are running as the resources are needed for creating the WAR artifact.
+
+3\. Extend from **be.atbash.ee.test.ui.AbstractWebTest**
+
+This abstract test class contains a few important helper methods and defines the startup and shutdown of the JavaFX browser.
+
+4\. Define the **be.atbash.ee.test.ui.runner.WebTestRunner** as JUnit runner
+
+This runner makes sure that each test method runs within the JavaFX thread (required for the interaction with the JavaFX WebView) and responsible for reading the SwarmConfiguration (if any)
+
+5\. Create WAR file and deploy on WildFly Swarm
+
+Create the WAR artifact using the **be.atbash.ee.test.ui.webarchive.WebArchiveBuilder**.  It is a layer on top of the _WebArchive_ of _ShrinkWrap_ to make creating the WAR file a very easy step.
+It must be done in a static method annotated with @BeforeClass.
+
+Add the dependency to the artifact defined in the pom.xml. An overloaded method using the canonical format is available to specify the dependency.
+
+----
+.addDependency(Library. );
+----
+
+
+Add the class to the artifact.
+
+----
+.addClass(  .class);
+----
+
+
+Add the web page (html or xhml page) to the WAR artifact. An overloaded method is available to rename the resource.
+
+----
+.addWebPage()
+----
+
+
+Add the resource (basically any file) to the artifact. An overloaded method is available to rename the resource.
+
+----
+.addResource()
+----
+
+
+Add the resource (basically any file) to the artifact within the _WEB-INF_ directory. An overloaded method is available to rename the resource.
+
+----
+.addAsWebInfResource()
+----
+
+
+Deploy the artifact to WildFly Swarm.
+
+----
+    @BeforeClass
+    public static void deploy() {
+        WebArchive archive = WebArchiveBuilder.create("test.war")
+                .addClass(HelloBean.class)
+                .addWebPage("helloWorld.xhtml")
+                .build();
+
+        deployApplication(archive);
+
+    }
+
+----
+
+6\. Open a html page
+
+Within a Test method, open
+
+----
+   WebPage webPage = openPage("http://localhost:8080/helloWorld.xhtml");
+----
+
+7\. Interact with the page
+
+Some useful methods on WebPage
+
+----
+webPage.checkPageTitle("");
+
+PageElement element = webPage.getElementById("#xxx")
+PageElement element = webPage.getElementById(".xxx")
+
+List<String[]> content = webPage.getTableContents(tableId, columns)
+
+webPage.guardClick(element).click()
+----
+
+The **guardClick** method guarantees correct functionality of a click on links and buttons in AJAX and non-AJAX situations.
+
+8\. Verify element information
+
+The getElementById() and getElementsByTag() return PageElement instances, pointing to a html node. Some interesting methods
+
+----
+.getText()
+.getValue()
+.getAttribute()
+.getProperty()
+.getClasses()  .hasClass()
+.find()
+.query()
+----
+
+
+_.getAttributes()_ returns the HTML attributes, _.getProperty()_ returns a JavaScript property value of the node.
+
+_.getClasses()_ is equivalent with _getAttribute("class")_ but split the String already.
+
+
+

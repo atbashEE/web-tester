@@ -82,16 +82,6 @@
             <artifactId>cdi</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.wildfly.swarm</groupId>
-            <artifactId>jsf</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.wildfly.swarm</groupId>
-            <artifactId>microprofile-config</artifactId>
-        </dependency>
-
         <!-- TODO review why this is needed. -->
         <dependency>
             <groupId>org.jboss.logging</groupId>

@@ -29,8 +29,6 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.wildfly.swarm.Swarm;
-import org.wildfly.swarm.cdi.CDIFraction;
-import org.wildfly.swarm.jsf.JSFFraction;
 
 import java.net.CookieHandler;
 import java.net.CookieManager;
@@ -56,9 +54,6 @@ public abstract class AbstractWebTest {
     protected static void deployApplication(WebArchive archive) {
 
         try {
-            // TODO support for JAX-RS and configurable fractions.
-            swarm.fraction(new CDIFraction())
-                    .fraction(new JSFFraction());
 
             if (WebTestRunner.swarmConfiguration != null) {
                 for (Map.Entry<String, String> entry : WebTestRunner.swarmConfiguration.getConfigurationAsMap().entrySet()) {

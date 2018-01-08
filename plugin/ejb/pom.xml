@@ -28,7 +28,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>jsf-plugin</artifactId>
+    <artifactId>ejb-plugin</artifactId>
     <version>${project.parent.version}</version>
     <packaging>jar</packaging>
 
@@ -42,15 +42,7 @@
 
         <dependency>
             <groupId>org.wildfly.swarm</groupId>
-            <artifactId>jsf</artifactId>
-        </dependency>
-
-        <!-- test dependencies -->
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <version>1.9.5</version>
-            <scope>test</scope>
+            <artifactId>ejb</artifactId>
         </dependency>
 
     </dependencies>

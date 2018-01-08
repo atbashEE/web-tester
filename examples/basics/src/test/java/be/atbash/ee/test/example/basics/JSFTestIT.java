@@ -52,8 +52,7 @@ public class JSFTestIT extends AbstractWebTest {
                 .addWebPage("helloWorld.xhtml")
                 .build();
 
-        deployApplication(archive
-        );
+        deployApplication(archive);
 
 
     }

@@ -34,7 +34,9 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>config</module>
         <module>jsf</module>
         <module>primefaces</module>
+        <module>ejb</module>
     </modules>
 </project>
