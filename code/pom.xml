@@ -35,7 +35,7 @@
     <properties>
 
         <slf4j.version>1.7.7</slf4j.version>
-        <wildfly.swarm.version>2017.10.0</wildfly.swarm.version>
+        <wildfly.swarm.version>2017.12.1</wildfly.swarm.version>
 
     </properties>
 
@@ -76,11 +76,6 @@
         </dependency>
 
         <!-- Swarm container and fractions-->
-        <dependency>
-
-            <groupId>org.wildfly.swarm</groupId>
-            <artifactId>container</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>org.wildfly.swarm</groupId>
@@ -90,6 +85,18 @@
         <dependency>
             <groupId>org.wildfly.swarm</groupId>
             <artifactId>jsf</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.wildfly.swarm</groupId>
+            <artifactId>microprofile-config</artifactId>
+        </dependency>
+
+        <!-- TODO review why this is needed. -->
+        <dependency>
+            <groupId>org.jboss.logging</groupId>
+            <artifactId>jboss-logging</artifactId>
+            <version>3.3.1.Final</version>
         </dependency>
 
         <!-- For the resolver of library dependencies bundled within the Archive (ShrinkWrap) from the pom.xml -->

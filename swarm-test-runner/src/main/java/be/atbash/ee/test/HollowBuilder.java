@@ -63,8 +63,8 @@ public class HollowBuilder {
 
         buildTool.hollow(true);
 
-        buildTool.fraction(ArtifactSpec.fromMscGav("org.wildfly.swarm:jaxrs:2017.10.0"));
-        buildTool.fraction(ArtifactSpec.fromMscGav("org.wildfly.swarm:jsf:2017.10.0"));
+        buildTool.fraction(ArtifactSpec.fromMscGav("org.wildfly.swarm:jaxrs:2017.12.1"));
+        buildTool.fraction(ArtifactSpec.fromMscGav("org.wildfly.swarm:jsf:2017.12.1"));
 
         try {
             Archive hollowJar = buildTool.build();
