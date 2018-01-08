@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Rudy De Busscher
+ * Copyright 2017-2018 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,7 +33,6 @@ import java.io.File;
 
 public class HollowBuilder {
 
-
     public static void main(String[] args) {
         BuildTool buildTool = new BuildTool(ShrinkwrapArtifactResolvingHelper.defaultInstance());
 
@@ -42,13 +41,11 @@ public class HollowBuilder {
         // We need to add this because there is mismatch in versions WildFly 10.1.0 and WildFly Core 2.2.1.Final used in Swarm
         dependencies.add(ArtifactSpec.fromMscGav("io.undertow:undertow-servlet:1.4.0.Final"));
 
-
         // FIXME This needs to be in the local repository before it can be used by this class
         // FIXME so split it up even more.
         // FIXME And we need a plugin or investigate how to use the swarm-tool-plugin and creation of hollow jar
         // To Have the main class
         dependencies.add(ArtifactSpec.fromMscGav("be.atbash.ee.test:swarm-test-runner:0.1"));
-
 
         buildTool.declaredDependencies(dependencies);
 

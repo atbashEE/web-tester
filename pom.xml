@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright 2017 Rudy De Busscher
+    Copyright 2017-2018 Rudy De Busscher
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -69,45 +69,44 @@
         <module>examples</module>
     </modules>
 
-    <profiles>
-        <profile>
-            <id>license</id>
-            <build>
-                <plugins>
-
-                    <plugin>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.mycila</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <version>3.0</version>
+                <configuration>
+                    <header>src/etc/headerTemplate.txt</header>
+                    <properties>
+                        <owner>Rudy De Busscher</owner>
+                    </properties>
+                    <excludes>
+                        <exclude>**/*.adoc</exclude>
+                        <exclude>**/README</exclude>
+                        <exclude>**/LICENSE.txt</exclude>
+                        <exclude>**/NOTICE.txt</exclude>
+                        <exclude>**/NOTICE</exclude>
+                    </excludes>
+                    <mapping>
+                        <java>SLASHSTAR_STYLE</java>
+                    </mapping>
+                </configuration>
+                <dependencies>
+                    <dependency>
                         <groupId>com.mycila</groupId>
-                        <artifactId>license-maven-plugin</artifactId>
+                        <artifactId>license-maven-plugin-git</artifactId>
                         <version>3.0</version>
-                        <configuration>
-                            <header>header_template.tpl</header>
-                            <properties>
-                                <owner>Rudy De Busscher</owner>
-                                <year>2017</year>
-                                <aggregate>true</aggregate>
-                            </properties>
-                            <excludes>
-                                <exclude>**/README</exclude>
-                                <exclude>**/LICENSE.txt</exclude>
-                                <exclude>**/NOTICE.txt</exclude>
-                                <exclude>**/NOTICE</exclude>
-                            </excludes>
-                            <mapping>
-                                <java>SLASHSTAR_STYLE</java>
-                            </mapping>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>check</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
 
-        </profile>
-
-    </profiles>
+        </plugins>
+    </build>
 </project>
