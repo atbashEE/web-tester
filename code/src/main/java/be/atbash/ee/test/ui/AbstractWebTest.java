@@ -114,6 +114,10 @@ public abstract class AbstractWebTest {
         return result;
     }
 
+    public void clearCookies() {
+        browser.clearCookies();
+    }
+
     private void checkBrowser() {
         if (browser == null) {
             browser = TestApplication.getBrowserEngine();
