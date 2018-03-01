@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Rudy De Busscher
+ * Copyright 2017-2018 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -75,6 +75,11 @@ public class WebArchiveBuilder {
 
     public WebArchiveBuilder addClass(Class<?> aClass) {
         webArchive.addClass(aClass);
+        return this;
+    }
+
+    public WebArchiveBuilder addResource(String localFileName, String archiveName) {
+        webArchive.addAsResource(localFileName, archiveName);
         return this;
     }
 
