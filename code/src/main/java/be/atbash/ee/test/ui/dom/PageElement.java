@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Rudy De Busscher
+ * Copyright 2017-2018 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -128,6 +128,13 @@ public class PageElement {
         return this;
     }
 
+    public PageElement clear() {
+        if (element instanceof HTMLInputElement) {
+            ((HTMLInputElement) element).setValue("");
+        }
+        return this;
+    }
+
     public List<PageElement> getChildren() {
         NodeList nodes = element.getChildNodes();
         List<PageElement> elements = new ArrayList<>();
@@ -167,7 +174,6 @@ public class PageElement {
         }
     }
 
-
     public PageElement click() {
         HTMLElementImpl element = getHtmlElement();
         element.click();
@@ -189,7 +195,6 @@ public class PageElement {
         }
         return Optional.of(id);
     }
-
 
     public Object getProperty(String key) {
         JSObject obj = getHtmlElement();
@@ -220,7 +225,6 @@ public class PageElement {
     public List<PageElement> queryAll(String selector) {
         return pageContext.getSelectorEngine().queryAll(this, selector);
     }
-
 
     public Point getOffset() {
         DocumentImpl document = (DocumentImpl) engine.getEngine().getDocument();
@@ -272,7 +276,6 @@ public class PageElement {
     public boolean hasChildNodes() {
         return getNode().hasChildNodes();
     }
-
 
     /**
      * FIXME This exposes underlying implementation but Oracle JDK only (since com.sun)!!
