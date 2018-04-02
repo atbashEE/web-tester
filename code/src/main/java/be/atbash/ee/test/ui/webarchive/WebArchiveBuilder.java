@@ -32,8 +32,8 @@ public class WebArchiveBuilder {
 
     private WebArchive webArchive;
     private PomEquippedResolveStage pom;
-    private boolean customCDIConfig; // TODO support custom CDI beans.xml
-    private boolean customWebConfig; // TODO support custom web.xml
+    private boolean customCDIConfig;
+    private boolean customWebConfig;
 
     private WebArchiveBuilder(String name) {
         webArchive = ShrinkWrap
@@ -91,6 +91,18 @@ public class WebArchiveBuilder {
 
     public WebArchiveBuilder addAsWebInfResource(String localFileName, String archiveName) {
         webArchive.addAsWebInfResource(localFileName, archiveName);
+        return this;
+    }
+
+    public WebArchiveBuilder addCustomCDIBean(String localFileName) {
+        customCDIConfig = true;
+        webArchive.addAsWebInfResource(localFileName, "beans.xml");
+        return this;
+    }
+
+    public WebArchiveBuilder addCustomWebXml(String localFileName) {
+        customWebConfig = true;
+        webArchive.addAsWebInfResource(localFileName, "web.xml");
         return this;
     }
 
