@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Rudy De Busscher
+ * Copyright 2017-2018 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -46,7 +46,7 @@ public class WebPage {
 
     public void checkPageTitle(String pageTitle) {
         String title = page.getWebDocument().getTitle().get();
-        assertThat(title).isEqualTo(pageTitle);
+        assertThat(title.trim()).isEqualTo(pageTitle);
     }
 
     public List<PageElement> getElementsByTag(String tagName) {
