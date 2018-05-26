@@ -27,7 +27,17 @@ import java.util.List;
 @PublicAPI
 public enum Library {
 
-    JERRY("be.atbash.ee.jsf:jerry"), VALERIE("be.atbash.ee.jsf:valerie"), PRIMEFACES("org.primefaces:primefaces"), VALERIE_PRIMEFACES("be.atbash.ee.jsf.valerie:valerie-primefaces"), OCTOPUS_JSF_EE7("be.c4j.ee.security.octopus:octopus-javaee7-jsf"), DELTASPIKE_CORE("org.apache.deltaspike.core:deltaspike-core-api", "org.apache.deltaspike.core:deltaspike-core-impl"), DELTASPIKE_SECURITY("org.apache.deltaspike.modules:deltaspike-security-module-api", "org.apache.deltaspike.modules:deltaspike-security-module-impl"), ATBASH_CONFIG("be.atbash.config:atbash-config", "be.atbash.config:geronimo-config"), ATBASH_OCTOPUS_JSF_EE7("be.atbash.ee.security:octopus-jsf7");
+    JERRY("be.atbash.ee.jsf:jerry"),
+    VALERIE("be.atbash.ee.jsf:valerie"),
+    PRIMEFACES("org.primefaces:primefaces"),
+    VALERIE_PRIMEFACES("be.atbash.ee.jsf.valerie:valerie-primefaces"),
+    OCTOPUS_JSF_EE7("be.c4j.ee.security.octopus:octopus-javaee7-jsf"),
+    DELTASPIKE_CORE("org.apache.deltaspike.core:deltaspike-core-api", "org.apache.deltaspike.core:deltaspike-core-impl"),
+    DELTASPIKE_SECURITY("org.apache.deltaspike.modules:deltaspike-security-module-api", "org.apache.deltaspike.modules:deltaspike-security-module-impl"),
+    ATBASH_CONFIG("be.atbash.config:atbash-config", "be.atbash.config:geronimo-config"),
+    ATBASH_OCTOPUS_JSF_EE7("be.atbash.ee.security:octopus-jsf7"),
+    ATBASH_OCTOPUS_KEYCLOAK("be.atbash.ee.security:octopus-keycloak"),
+    ;
 
     private List<String> canonicalForms;
 
