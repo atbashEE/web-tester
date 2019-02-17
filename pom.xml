@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright 2017-2018 Rudy De Busscher
+    Copyright 2017-2019 Rudy De Busscher
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -46,16 +46,16 @@
         <maven.compiler.target>1.8</maven.compiler.target>
 
         <slf4j.version>1.7.7</slf4j.version>
-        <wildfly.swarm.version>2017.12.1</wildfly.swarm.version>
+        <thorntail.version>2.3.0.Final</thorntail.version>
 
     </properties>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.wildfly.swarm</groupId>
-                <artifactId>bom</artifactId>
-                <version>${wildfly.swarm.version}</version>
+                <groupId>io.thorntail</groupId>
+                <artifactId>bom-all</artifactId>
+                <version>${thorntail.version}</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
